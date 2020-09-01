@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
                 spawnRate -= 0.01f;
             }
             float xPos = Random.Range(-xRange, xRange);
-            Instantiate(ballPrefab, new Vector3(xPos, -10, 7), transform.rotation);
+            Instantiate(ballPrefab, new Vector3(xPos, 0, 7), transform.rotation);
         }
     }
 
