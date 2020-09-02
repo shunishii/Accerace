@@ -54,11 +54,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Obstacle"))
+        if (collision.gameObject.CompareTag("Obstacle") && !isGameover)
         {
             isGameover = true;
-            playerRb.AddForce(Vector3.up * 8, ForceMode.Impulse);
-            playerRb.AddTorque(Vector3.right * speed, ForceMode.Impulse);
+            playerRb.AddForce(Vector3.up * 8000, ForceMode.Impulse);
+            playerRb.AddTorque(Vector3.right * 1000, ForceMode.Impulse);
             gameManager.Gameover();
         }
     }
