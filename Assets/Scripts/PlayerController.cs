@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
             dir *= Time.deltaTime;
             transform.position += (dir * speed);
         }
+        //transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
     public void OnCollisionEnter(Collision collision)
