@@ -7,7 +7,7 @@ public class StageController : MonoBehaviour
     private Vector3 startPos;
     private float speed = 5f;
     private float repeatWidth;
-    public GameManager gameManager;
+    private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()

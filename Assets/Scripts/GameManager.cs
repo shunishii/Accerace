@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject ballPrefab;
+    public GameObject obstacle;
     public TextMeshProUGUI gameoverText;
     public TextMeshProUGUI timeText;
     public Button startButton;
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
                 spawnRate -= 0.01f;
             }
             float xPos = Random.Range(-xRange, xRange);
-            Instantiate(ballPrefab, new Vector3(xPos, 0, 7), transform.rotation);
+            Instantiate(obstacle, new Vector3(xPos, 0.25f, 7), transform.rotation);
         }
     }
 

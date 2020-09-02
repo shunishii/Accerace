@@ -23,23 +23,22 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 val = Input.acceleration;
         Vector3 dir = Vector3.zero;
 
 #if UNITY_EDITOR
-        Vector3 arrow = Vector3.zero;
+        Vector3 keyArrow = Vector3.zero;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            arrow.x = -0.1f;
+            keyArrow.x = -0.1f;
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            arrow.x = 0.1f;
+            keyArrow.x = 0.1f;
         }
-        val = arrow;
+        dir = keyArrow;
+#else
+        dir = Input.acceleration;
 #endif
-
-        dir.x = val.x;
 
         if ((transform.position.x > rangeX && dir.x > 0) || (transform.position.x < -rangeX && dir.x < 0))
         {
@@ -51,12 +50,11 @@ public class PlayerController : MonoBehaviour
             dir *= Time.deltaTime;
             transform.position += (dir * speed);
         }
-        //transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ball"))
+        if (collision.gameObject.CompareTag("Obstacle"))
         {
             isGameover = true;
             playerRb.AddForce(Vector3.up * 8, ForceMode.Impulse);

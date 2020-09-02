@@ -855,7 +855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97f267658b2c20e42ba9e7003c94e3af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 1463536340911781496, guid: 69673d65d7ce24e41b63a0851500b273,
+  obstacle: {fileID: 1069680757421563812, guid: dd0308000adaa4ea38681b8adf83414f,
     type: 3}
   gameoverText: {fileID: 210211709}
   timeText: {fileID: 1703413106}
