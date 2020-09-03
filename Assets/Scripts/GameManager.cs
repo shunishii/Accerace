@@ -8,18 +8,24 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public GameObject obstacle;
-    public TextMeshProUGUI gameoverText;
-    public TextMeshProUGUI timeText;
+    public TextMeshProUGUI finishText;
+    public TextMeshProUGUI scoreText;
     public Button startButton;
     public Button goTitleButton;
     public bool isGameActive;
     private float xRange = 2.0f;
     private float spawnRate = 1.0f;
     private float countTime;
+    private int maxScore;
+    private int currentScore;
+    private float flashTime = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
         Screen.sleepTimeout = SleepTimeout.SystemSetting;
+        maxScore = PlayerPrefs.GetInt("SCORE", 0);
+        scoreText.SetText("Max Score: " + maxScore);
     }
 
     // Update is called once per frame
@@ -28,7 +34,12 @@ public class GameManager : MonoBehaviour
         if (isGameActive)
         {
             countTime += Time.deltaTime;
-            timeText.SetText("Time: " + (Mathf.Round(countTime * 10) / 10).ToString("F1"));
+            currentScore = ((int)(countTime * 10));
+            scoreText.SetText("Score: " + currentScore);
+        }
+        if (finishText.IsActive())
+        {
+            finishText.color = GetAlphaColor(finishText.color);
         }
     }
 
@@ -57,13 +68,32 @@ public class GameManager : MonoBehaviour
 
     public void Gameover()
     {
-        gameoverText.gameObject.SetActive(true);
         goTitleButton.gameObject.SetActive(true);
         isGameActive = false;
+        if (maxScore < currentScore)
+        {
+            maxScore = currentScore;
+            PlayerPrefs.SetInt("SCORE", maxScore);
+            PlayerPrefs.Save();
+            finishText.SetText(currentScore + "\nUpdated max score!");
+        }
+        else
+        {
+            finishText.SetText(currentScore + "\nGameover!");
+        }
+        finishText.gameObject.SetActive(true);
     }
 
     public void GoTitle()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    Color GetAlphaColor(Color color)
+    {
+        flashTime += Time.deltaTime * 5.0f;
+        color.a = Mathf.Sin(flashTime) * 0.5f + 0.5f;
+
+        return color;
     }
 }
