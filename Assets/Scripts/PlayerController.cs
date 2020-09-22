@@ -10,14 +10,12 @@ public class PlayerController : MonoBehaviour
     private float rangeX = 1.8f;
     public bool isGameover = false;
     public Button resetButton;
-    public GameManager gameManager;
     private Rigidbody playerRb;
 
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -44,12 +42,8 @@ public class PlayerController : MonoBehaviour
         {
             dir.x = 0;
         }
-
-        if (gameManager.isGameActive)
-        {
-            dir *= Time.deltaTime;
-            transform.position += (dir * speed);
-        }
+        dir *= Time.deltaTime;
+        transform.position += (dir * speed);
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -59,7 +53,6 @@ public class PlayerController : MonoBehaviour
             isGameover = true;
             playerRb.AddForce(Vector3.up * 8000, ForceMode.Impulse);
             playerRb.AddTorque(Vector3.right * 1000, ForceMode.Impulse);
-            gameManager.Gameover();
         }
     }
 }
