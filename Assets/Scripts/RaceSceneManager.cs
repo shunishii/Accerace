@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class RaceSceneManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI timeText;
     [SerializeField] private TextMeshProUGUI countDownText;
+    [SerializeField] private GameObject resultPanel;
+    [SerializeField] private TextMeshProUGUI resultTimeText;
+    [SerializeField] private TextMeshProUGUI bestTimeText;
 
     private float time = 0;
     public static bool isRacing = false;
@@ -17,6 +21,7 @@ public class RaceSceneManager : MonoBehaviour
     {
         isRacing = false;
         time = 0;
+        resultPanel.SetActive(false);
         StartCoroutine(CountDownCoroutine());
     }
 
@@ -59,5 +64,23 @@ public class RaceSceneManager : MonoBehaviour
 
         countDownText.text = "";
         countDownText.gameObject.SetActive(false);
+    }
+
+    private void RaceFinish()
+    {
+        isRacing = false;
+        resultPanel.SetActive(true);
+        resultTimeText.SetText("Time: " + time.ToString("f1") + " s");
+
+        if (time < GameManager.bestTime)
+        {
+            bestTimeText.gameObject.SetActive(true);
+            PlayerPrefs.SetFloat("BestTime", time);
+            GameManager.bestTime = time;
+        }
+        else
+        {
+            bestTimeText.gameObject.SetActive(false);
+        }
     }
 }
