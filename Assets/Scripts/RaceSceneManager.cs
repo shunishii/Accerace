@@ -14,6 +14,7 @@ public class RaceSceneManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI bestTimeText;
 
     private float time = 0;
+    private bool midPassed = false;
     public static bool isRacing = false;
 
     // Start is called before the first frame update
@@ -38,6 +39,7 @@ public class RaceSceneManager : MonoBehaviour
     public void RaceStart()
     {
         isRacing = true;
+        midPassed = false;
     }
 
     public void Restart()
@@ -81,6 +83,20 @@ public class RaceSceneManager : MonoBehaviour
         else
         {
             bestTimeText.gameObject.SetActive(false);
+        }
+    }
+
+    public void TriggerEnter(string colliderName)
+    {
+        if (isRacing && midPassed == true && colliderName == "GoalCollider")
+        {
+            Debug.Log("Goal");
+            RaceFinish();
+        }
+        else if (colliderName == "MidCollider")
+        {
+            Debug.Log("midPassed");
+            midPassed = true;
         }
     }
 }
