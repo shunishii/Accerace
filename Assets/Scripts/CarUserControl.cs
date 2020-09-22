@@ -20,27 +20,30 @@ namespace UnityStandardAssets.Vehicles.Car
 
         private void FixedUpdate()
         {
-            // pass the input to the car!
-            float h = CrossPlatformInputManager.GetAxis("Horizontal");
-            float v = CrossPlatformInputManager.GetAxis("Vertical");
-
-            if (isAccelButtonPushing)
+            if (RaceSceneManager.isRacing)
             {
-                v += 1;
-            }
-            if (isBrakeButtonPushing)
-            {
-                v -= 1;
-            }
+                // pass the input to the car!
+                float h = CrossPlatformInputManager.GetAxis("Horizontal");
+                float v = CrossPlatformInputManager.GetAxis("Vertical");
 
-            h += Input.acceleration.x * 0.5f;
+                if (isAccelButtonPushing)
+                {
+                    v += 1;
+                }
+                if (isBrakeButtonPushing)
+                {
+                    v -= 1;
+                }
+
+                h += Input.acceleration.x * 0.5f;
 
 #if !MOBILE_INPUT
-            float handbrake = CrossPlatformInputManager.GetAxis("Jump");
-            m_Car.Move(h, v, v, handbrake);
+                float handbrake = CrossPlatformInputManager.GetAxis("Jump");
+                m_Car.Move(h, v, v, handbrake);
 #else
-            m_Car.Move(h, v, v, 0f);
+                m_Car.Move(h, v, v, 0f);
 #endif
+            }
         }
 
         public void AccelPushDown()
