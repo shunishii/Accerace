@@ -33,7 +33,7 @@ namespace UnityStandardAssets.Vehicles.Car
                 v -= 1;
             }
 
-            h += Input.acceleration.x;
+            h += Input.acceleration.x * 0.5f;
 
 #if !MOBILE_INPUT
             float handbrake = CrossPlatformInputManager.GetAxis("Jump");
