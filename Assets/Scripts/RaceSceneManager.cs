@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class RaceSceneManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI timeText;
     [SerializeField] private TextMeshProUGUI countDownText;
+    [SerializeField] private GameObject resultPanel;
+    [SerializeField] private TextMeshProUGUI resultTimeText;
+    [SerializeField] private TextMeshProUGUI bestTimeText;
 
     private float time = 0;
+    private bool midPassed = false;
     public static bool isRacing = false;
 
     // Start is called before the first frame update
@@ -17,6 +22,7 @@ public class RaceSceneManager : MonoBehaviour
     {
         isRacing = false;
         time = 0;
+        resultPanel.SetActive(false);
         StartCoroutine(CountDownCoroutine());
     }
 
@@ -33,6 +39,7 @@ public class RaceSceneManager : MonoBehaviour
     public void RaceStart()
     {
         isRacing = true;
+        midPassed = false;
     }
 
     public void Restart()
@@ -59,5 +66,37 @@ public class RaceSceneManager : MonoBehaviour
 
         countDownText.text = "";
         countDownText.gameObject.SetActive(false);
+    }
+
+    private void RaceFinish()
+    {
+        isRacing = false;
+        resultPanel.SetActive(true);
+        resultTimeText.SetText("Time: " + time.ToString("f1") + " s");
+
+        if (time < GameManager.bestTime)
+        {
+            bestTimeText.gameObject.SetActive(true);
+            PlayerPrefs.SetFloat("BestTime", time);
+            GameManager.bestTime = time;
+        }
+        else
+        {
+            bestTimeText.gameObject.SetActive(false);
+        }
+    }
+
+    public void TriggerEnter(string colliderName)
+    {
+        if (isRacing && midPassed == true && colliderName == "GoalCollider")
+        {
+            Debug.Log("Goal");
+            RaceFinish();
+        }
+        else if (colliderName == "MidCollider")
+        {
+            Debug.Log("midPassed");
+            midPassed = true;
+        }
     }
 }
