@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 1463536340911781498}
   - component: {fileID: 1463536340911781497}
   - component: {fileID: 1463536340911781493}
-  - component: {fileID: 1463536340911781494}
+  - component: {fileID: -1727019628631889755}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Ball
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,6 +57,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -110,7 +111,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1463536340911781494
+--- !u!114 &-1727019628631889755
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,6 +120,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1463536340911781496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffc8d64fde1a9c743a518a57c652a80a, type: 3}
+  m_Script: {fileID: 11500000, guid: 4353dfa81bc774fb28f37277e05c740f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
