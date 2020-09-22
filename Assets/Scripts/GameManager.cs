@@ -96,4 +96,9 @@ public class GameManager : MonoBehaviour
 
         return color;
     }
+
+    public void SceneResetButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
